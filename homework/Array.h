@@ -122,6 +122,7 @@ public:
         *this = *this + other;
         return *this;
     }
+    Array() : size(0), capacity(10) { data = new T[capacity]{}; }
 
     int operator[](size_t index) const {
         return (index < size) ? data[index] : 0;
@@ -198,5 +199,7 @@ public:
 
     size_t getSize() const {
         return size;
+        
+    
     }
 };
