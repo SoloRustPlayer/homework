@@ -39,6 +39,18 @@ public:
             data[i] = min + (i % (max - min + 1));
         }
     }
+    void Remove(size_t index) {
+        if (index >= size) return;
+        for (size_t i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        resize(size - 1);
+    }
+
+    void Append(int value) {
+        resize(size + 1);
+        data[size - 1] = value;
+    }
 
     void resize(size_t newSize) {
         int* newData = new int[newSize] {};
