@@ -82,5 +82,56 @@ public:
         }
         return maxValue;
     }
+    Array& operator=(const Array& other) {
+        if (this != &other) {
+            delete[] data;
+            size = other.size;
+            data = new int[size];
+            for (size_t i = 0; i < size; i++) {
+                data[i] = other.data[i];
+            }
+        }
+        return *this;
+    }
+
+    Array operator+(const Array& other) const {
+        Array result(size + other.size);
+        for (size_t i = 0; i < size; i++) {
+            result.data[i] = data[i];
+        }
+        for (size_t i = 0; i < other.size; i++) {
+            result.data[size + i] = other.data[i];
+        }
+        return result;
+    }
+
+    Array& operator+=(const Array& other) {
+        *this = *this + other;
+        return *this;
+    }
+
+    int operator[](size_t index) const {
+        return (index < size) ? data[index] : 0;
+    }
+
+    bool operator==(const Array& other) const {
+        if (size != other.size) return false;
+        for (size_t i = 0; i < size; i++) {
+            if (data[i] != other.data[i]) return false;
+        }
+        return true;
+    }
+
+    bool operator!=(const Array& other) const {
+        return !(*this == other);
+    }
+
+    bool operator>(const Array& other) const {
+        return size > other.size;
+    }
+
+    bool operator<(const Array& other) const {
+        return size < other.size;
+    }
 
 };
