@@ -34,4 +34,67 @@ public:
     ~String() {
         delete[] str;
     }
+    String& operator=(const String& other) {
+        if (this != &other) {
+            delete[] str;
+            length = other.length;
+            str = new char[length + 1];
+            for (size_t i = 0; i <= length; i++) {
+                str[i] = other.str[i];
+            }
+        }
+        return *this;
+    }
+
+    String operator+(const String& other) const {
+        size_t newLength = length + other.length;
+        char* newStr = new char[newLength + 1];
+        for (size_t i = 0; i < length; i++) {
+            newStr[i] = str[i];
+        }
+        for (size_t i = 0; i < other.length; i++) {
+            newStr[length + i] = other.str[i];
+        }
+        newStr[newLength] = '\0';
+        String result(newStr);
+        delete[] newStr;
+        return result;
+    }
+
+    String& operator+=(const String& other) {
+        *this = *this + other;
+        return *this;
+    }
+
+    char operator[](size_t index) const {
+        return (index < length) ? str[index] : '\0';
+    }
+
+    void print() const {
+        for (size_t i = 0; i < length; i++) {
+            std::cout << str[i];
+        }
+        std::cout << std::endl;
+    }
+
+    bool operator==(const String& other) const {
+        if (length != other.length) return false;
+        for (size_t i = 0; i < length; i++) {
+            if (str[i] != other.str[i]) return false;
+        }
+        return true;
+    }
+
+    bool operator!=(const String& other) const {
+        return !(*this == other);
+    }
+
+    bool operator>(const String& other) const {
+        return length > other.length;
+    }
+
+    bool operator<(const String& other) const {
+        return length < other.length;
+    }
+
 };
