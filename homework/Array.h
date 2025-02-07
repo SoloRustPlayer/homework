@@ -1,7 +1,8 @@
 #include <iostream>
-
+template <typename T>
 class Array {
 private:
+    T* data;
     int* data;
     size_t size;
 
@@ -145,5 +146,57 @@ public:
     bool operator<(const Array& other) const {
         return size < other.size;
     }
+    Array(size_t n = 10) : size(0), capacity(n) {
+        data = new T[capacity]{};
+    }
 
+    ~Array() {
+        delete[] data;
+    }
+
+    void push(const T& value) {
+        if (size >= capacity) {
+            resize(capacity * 2);
+        }
+        data[size++] = value;
+    }
+
+    void pop() {
+        if (size > 0) {
+            size--;
+        }
+    }
+
+    T top() const {
+        if (size > 0) {
+            return data[size - 1];
+        }
+        return T();
+    }
+
+    void clear() {
+        size = 0;
+    }
+
+    bool isEmpty() const {
+        return size == 0;
+    }
+
+    void resize(size_t newCapacity) {
+        T* newData = new T[newCapacity];
+        for (size_t i = 0; i < size; i++) {
+            newData[i] = data[i];
+        }
+        delete[] data;
+        data = newData;
+        capacity = newCapacity;
+    }
+
+    T& operator[](size_t index) {
+        return data[index];
+    }
+
+    size_t getSize() const {
+        return size;
+    }
 };

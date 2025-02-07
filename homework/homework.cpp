@@ -3,7 +3,6 @@
 #include "Array.h"
 
 int main() {
-    // Тестування класу String
     String str1("Hello");
     String str2(" World");
     String str3 = str1 + str2;
