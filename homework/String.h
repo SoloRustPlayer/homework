@@ -96,5 +96,20 @@ public:
     bool operator<(const String& other) const {
         return length < other.length;
     }
+    String(String&& other) noexcept : str(other.str), length(other.length) {
+        other.str = nullptr;
+        other.length = 0;
+    }
+
+    String& operator=(String&& other) noexcept {
+        if (this != &other) {
+            delete[] str;
+            str = other.str;
+            length = other.length;
+            other.str = nullptr;
+            other.length = 0;
+        }
+        return *this;
+    }
 
 };
